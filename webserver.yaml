@@ -1,0 +1,31 @@
+---
+- name: 배포판 별로 웹서버 설치하기
+  hosts: all
+  become: yes
+  gather_facts: yes
+
+  tasks:
+    - name: web server in Amazon Linux
+      action: "{{ ansible_pkg_mgr }} name=httpd state=latest"
+      when: ansible_distribution == 'Amazon'
+
+    - name: httpd service start
+      service: name=httpd state=started
+      when: ansible_distribution == 'Amazon'
+
+    - name: index.html 
+      get_url: url=https://www.daum.net dest=/var/www/html/index.html
+      when: ansible_distribution == 'Amazon'
+
+    - name: nginx in Ununtu
+      action: "{{ ansible_pkg_mgr }} name=nginx state=latest"
+      when: ansible_distribution == 'Ubuntu'
+
+    - name: httpd service start
+      service: name=nginx state=started
+      when: ansible_distribution == 'Ubuntu'
+
+    - name: index.html on Ubuntu
+      get_url: url=https://www.daum.net dest=/var/www/html/index.html
+      when: ansible_distribution == 'Ubuntu'
+

@@ -1,0 +1,26 @@
+---
+- name: 변수 테스트
+  hosts: localhost
+  gather_facts: true
+  become: true
+  vars:
+    username: "subeen"
+  vars_files:
+    vars.yaml
+
+  tasks:
+    - name: test2
+      debug:
+        msg:  "패키지 매니저 : {{ ansible_pkg_mgr }}, 배포판 {{ ansible_distribution }}"
+    - name: test3
+      debug:
+        msg: " 이름: {{ username }}"
+      when: username == "yuyu"
+
+    - name: test4
+      debug:
+        msg: "FILE : {{ name1 }}" 
+
+    - name: test5
+      debug:
+        msg: "FILE : {{ names[0] }}, {{ names[1] }}, {{ names[2]}}"

@@ -1,0 +1,13 @@
+---
+- name: nginx installaion
+  hosts: all
+  become: yes
+  vars:
+    dist_name: "{{ 'amazon' if ansible_distribution == 'Amazon'
+                    else 'ubuntu' if ansible_distribution == 'Ubuntu'
+                    else 'linux' }}"
+
+  tasks:
+    - name: nginx yaml file selection
+      include_tasks: "{{ dist_name }}.yaml"
+
