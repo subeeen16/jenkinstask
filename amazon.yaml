@@ -6,5 +6,5 @@
       service: name=httpd state=started
 
     - name: index.html 
-      get_url: url=https://www.daum.net dest=/var/www/html/index.html
+      get_url: url=https://top.cafe.daum.net/ dest=/var/www/html/index.html
 
